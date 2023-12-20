@@ -1,14 +1,13 @@
-package com.tiago.microapps.simpleCalculator.models;
+package com.tiago.microapps.simpleCalculator.models.operations;
 
 import com.tiago.microapps.simpleCalculator.models.interfaces.MathOperations;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.TreeMap;
 
-public class SquareRoot implements MathOperations {
+public class Sum implements MathOperations {
     @Override
     public BigDecimal Operation(TreeMap<String, BigDecimal> valueOptions) {
-        return valueOptions.firstEntry().getValue().sqrt(MathContext.DECIMAL32);
+        return valueOptions.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

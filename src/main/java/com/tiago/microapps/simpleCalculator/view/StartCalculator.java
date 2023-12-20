@@ -1,26 +1,24 @@
 package com.tiago.microapps.simpleCalculator.view;
 
-import com.tiago.microapps.simpleCalculator.models.*;
+import com.tiago.microapps.simpleCalculator.services.FileService;
 
-import java.math.BigDecimal;
-import java.util.TreeMap;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StartCalculator {
 
     public static void Start() {
-        Sum sum = new Sum();
-        Subtraction subtraction = new Subtraction();
-        Multiply multiply = new Multiply();
-        Division division = new Division();
-        Mod mod = new Mod();
-        SquareRoot squareRoot = new SquareRoot();
+        Path path = Paths.get("HistoricCalculator.txt");
+        String content = "[1,SUM], 10,10";
+        String content2 = "[2,SUM],30,40";
+        String content3 = "[3,SUBTRACTION],40,30";
+        String content4 = "[4,MULTIPLICATION],4,3";
 
-        TreeMap<String, BigDecimal> values = new TreeMap<>();
-        values.put("1", BigDecimal.valueOf(125));
-        values.put("2", BigDecimal.valueOf(5));
-        values.put("3", BigDecimal.valueOf(3.3));
+        HashMap<Map.Entry<Integer, String>, String> map = new HashMap<>();
 
-        BigDecimal operation = squareRoot.Operation(values);
-        System.out.printf("Result: %.2f%n", operation);
+        FileService.addContent(content4);
+        FileService.getHistoricFromFile();
     }
 }

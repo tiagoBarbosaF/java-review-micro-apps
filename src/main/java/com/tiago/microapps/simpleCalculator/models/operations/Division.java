@@ -1,4 +1,4 @@
-package com.tiago.microapps.simpleCalculator.models;
+package com.tiago.microapps.simpleCalculator.models.operations;
 
 import com.tiago.microapps.simpleCalculator.models.interfaces.MathOperations;
 
