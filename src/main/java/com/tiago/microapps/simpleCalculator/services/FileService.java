@@ -10,7 +10,9 @@ public class FileService {
     private static final Path path = Paths.get("HistoricCalculator.txt");
 
     public static void initializeFile() {
-        clearFileContent();
+        if (!Files.exists(path)) {
+            clearFileContent();
+        }
     }
 
     public static void addContent(String content) {
@@ -59,7 +61,7 @@ public class FileService {
                 }
             }
 
-            listMaps.forEach(item -> System.out.printf("%s:%n%s%n", item.getKey().getValue(), item.getValue()));
+            listMaps.forEach(item -> System.out.printf("%s: %s%n", item.getKey().getValue(), item.getValue()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
