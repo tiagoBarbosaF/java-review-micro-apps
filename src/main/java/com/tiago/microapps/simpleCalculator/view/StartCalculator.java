@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public class StartCalculator {
 
-    public static void Start() {
+    public static void start() {
         FileService.initializeFile();
 
         while (true) {

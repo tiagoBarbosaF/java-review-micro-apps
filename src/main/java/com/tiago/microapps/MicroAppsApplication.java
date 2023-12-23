@@ -1,6 +1,6 @@
 package com.tiago.microapps;
 
-import com.tiago.microapps.simpleCalculator.view.StartCalculator;
+import com.tiago.microapps.view.GeneralMenu;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ public class MicroAppsApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
-		StartCalculator.Start();
+	public void run(String... args) {
+		GeneralMenu.start();
 	}
 }
