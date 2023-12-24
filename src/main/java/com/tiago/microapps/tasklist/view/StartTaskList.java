@@ -37,14 +37,15 @@ public class StartTaskList {
 
     private static void menuOptions() {
         String menuBar = "-".repeat(40);
-        String titleApp = "**** Task List ****";
+        String titleApp = "***** Task List *****";
         String menuBarTitle = "*".repeat(titleApp.length());
 
         System.out.println(menuBar + "\n\n" +
                 "\t" + titleApp + "\n\n" +
                 "\t   1 - Add task\n" +
                 "\t   2 - List tasks\n" +
-                "\t   3 - Remove tasks\n" +
+                "\t   3 - Mark tasks as completed\n" +
+                "\t   4 - Remove tasks\n" +
                 "\t   0 - Exit\n\n" +
                 "\t" + menuBarTitle + "\n\n" +
                 menuBar);

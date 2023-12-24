@@ -1,14 +1,14 @@
-package com.tiago.microapps.tasklist.models;
+package com.tiago.microapps.tasklist.models.records;
 
 import com.tiago.microapps.tasklist.models.enums.Priority;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record Task(
         long id,
         String description,
-        Date dateTime,
+        LocalDateTime dateTime,
         Priority priority,
         boolean status,
         List<Category> categories
