@@ -4,18 +4,27 @@ import com.tiago.microapps.simpleCalculator.handlers.OperationsHandler;
 import com.tiago.microapps.simpleCalculator.models.Historic;
 import com.tiago.microapps.simpleCalculator.models.enums.OperationTypes;
 import com.tiago.microapps.simpleCalculator.models.interfaces.MathOperations;
-import com.tiago.microapps.simpleCalculator.services.FileService;
+import com.tiago.microapps.simpleCalculator.services.SimpleCalculatorFile;
 
 import java.math.BigDecimal;
 
 public class StartCalculator {
+    private final SimpleCalculatorFile simpleCalculatorFile;
+    private final Historic historic;
+    private final MenuOptions menuOptions;
 
-    public static void start() {
-        FileService.initializeFile();
+    public StartCalculator(SimpleCalculatorFile simpleCalculatorFile, Historic historic, MenuOptions menuOptions) {
+        this.simpleCalculatorFile = simpleCalculatorFile;
+        this.historic = historic;
+        this.menuOptions = menuOptions;
+    }
+
+    public void start() {
+        simpleCalculatorFile.initializeFile();
 
         while (true) {
             MenuOptions.menu();
-            OperationTypes getOptions = MenuOptions.menuGetOptions();
+            OperationTypes getOptions = menuOptions.menuGetOptions();
 
             if (getOptions.equals(OperationTypes.EXIT)) {
                 break;
@@ -28,13 +37,13 @@ public class StartCalculator {
 
             if (getOptions.equals(OperationTypes.HISTORIC)) {
                 System.out.println("\nHistoric:");
-                Historic.getHistoric();
+                historic.getHistoric();
             } else if (getOptions.equals(OperationTypes.CLEAN_HISTORIC)) {
-                Historic.clearHistoric();
+                historic.clearHistoric();
                 System.out.println("Historic cleaned!");
             } else {
                 MathOperations operations = OperationsHandler.getOperations(getOptions);
-                BigDecimal resultOperation = operations.Operation(MenuOptions.getNumberOptions(getOptions));
+                BigDecimal resultOperation = operations.Operation(menuOptions.getNumberOptions(getOptions));
                 System.out.printf("%nResult: %.2f", resultOperation);
             }
         }

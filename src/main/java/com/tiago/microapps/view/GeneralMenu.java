@@ -7,8 +7,13 @@ import java.util.Scanner;
 
 public class GeneralMenu {
     private final static Scanner scanner = new Scanner(System.in);
+    private final StartCalculator startCalculator;
 
-    public static void start() {
+    public GeneralMenu(StartCalculator startCalculator) {
+        this.startCalculator = startCalculator;
+    }
+
+    public void start() {
         while (true) {
             menuOptions();
             System.out.print("\nEnter an option: ");
@@ -20,7 +25,7 @@ public class GeneralMenu {
 
             switch (optionMenu) {
                 case "1":
-                    StartCalculator.start();
+                    startCalculator.start();
                     break;
                 case "2":
                     StartTaskList.start();

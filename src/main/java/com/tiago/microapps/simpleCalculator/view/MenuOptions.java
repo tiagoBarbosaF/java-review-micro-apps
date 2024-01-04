@@ -9,6 +9,11 @@ import java.util.regex.Pattern;
 
 public class MenuOptions {
     private static final Scanner scanner = new Scanner(System.in);
+    private final Historic historic;
+
+    public MenuOptions(Historic historic) {
+        this.historic = historic;
+    }
 
     public static void menu() {
         String menuBar = "-".repeat(50);
@@ -32,7 +37,7 @@ public class MenuOptions {
         );
     }
 
-    public static OperationTypes menuGetOptions() {
+    public OperationTypes menuGetOptions() {
         final String pattern = "^[0-9]$";
         System.out.print("\nEnter the option: ");
         String option = scanner.nextLine();
@@ -51,7 +56,7 @@ public class MenuOptions {
         return OperationTypes.values()[optionParse - 1];
     }
 
-    public static TreeMap<String, BigDecimal> getNumberOptions(OperationTypes option) {
+    public TreeMap<String, BigDecimal> getNumberOptions(OperationTypes option) {
         int i = 0;
         int indexType = 0;
         TreeMap<String, BigDecimal> numberOptions = new TreeMap<>();
@@ -91,10 +96,10 @@ public class MenuOptions {
         String values = String.join(", ", listOfValues.stream().map(BigDecimal::toString).toList());
 
         if (Historic.checkHistoricEmpty()) {
-            Historic.addHistoric(Map.entry(++indexType, option.name()), values);
+            historic.addHistoric(Map.entry(++indexType, option.name()), values);
         } else {
             Map.Entry<Map.Entry<Integer, String>, String> lastHistoricKey = Historic.getLastHistoricKey();
-            Historic.addHistoric(Map.entry(lastHistoricKey.getKey().getKey() + 1, option.name()), values);
+            historic.addHistoric(Map.entry(lastHistoricKey.getKey().getKey() + 1, option.name()), values);
         }
 
         listOfValues.clear();

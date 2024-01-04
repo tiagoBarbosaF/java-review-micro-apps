@@ -1,21 +1,23 @@
 package com.tiago.microapps.simpleCalculator.services;
 
+import com.tiago.microapps.interfaces.FileService;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FileService {
-    private static final Path path = Paths.get("HistoricCalculator.txt");
+public class SimpleCalculatorFile implements FileService {
+    private final Path path = Paths.get("HistoricCalculator.txt");
 
-    public static void initializeFile() {
+    public void initializeFile() {
         if (!Files.exists(path)) {
             clearFileContent();
         }
     }
 
-    public static void addContent(String content) {
+    public void addContent(String content) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path.toString(), true))) {
             bufferedWriter.append(content).append("\n");
         } catch (IOException e) {
@@ -23,7 +25,7 @@ public class FileService {
         }
     }
 
-    public static boolean checkHistoricFileContainsContent() {
+    public boolean checkFileContainsContent() {
         try {
             return Files.size(path) != 0;
         } catch (IOException e) {
@@ -31,7 +33,7 @@ public class FileService {
         }
     }
 
-    public static void clearFileContent() {
+    public void clearFileContent() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path.toString(), false))) {
             bufferedWriter.write("");
         } catch (IOException e) {
@@ -39,7 +41,7 @@ public class FileService {
         }
     }
 
-    public static Map.Entry<Map.Entry<Integer, String>, String> mapFileToTreeMap(String line) {
+    public Map.Entry<Map.Entry<Integer, String>, String> mapFileToTreeMap(String line) {
         String[] elements = line.split(",");
         Integer key1 = Integer.parseInt(elements[0].trim().replace("[", ""));
         String key2 = elements[1].trim().replace("]", "");
@@ -49,7 +51,7 @@ public class FileService {
         return Map.entry(Map.entry(key1, key2), value);
     }
 
-    public static void getHistoricFromFile() {
+    public void readFromFile() {
         List<Map.Entry<Map.Entry<Integer, String>, String>> listMaps = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toString()))) {
