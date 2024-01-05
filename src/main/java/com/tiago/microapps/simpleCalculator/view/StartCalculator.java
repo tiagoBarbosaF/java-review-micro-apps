@@ -9,22 +9,13 @@ import com.tiago.microapps.simpleCalculator.services.SimpleCalculatorFile;
 import java.math.BigDecimal;
 
 public class StartCalculator {
-    private final SimpleCalculatorFile simpleCalculatorFile;
-    private final Historic historic;
-    private final MenuOptions menuOptions;
 
-    public StartCalculator(SimpleCalculatorFile simpleCalculatorFile, Historic historic, MenuOptions menuOptions) {
-        this.simpleCalculatorFile = simpleCalculatorFile;
-        this.historic = historic;
-        this.menuOptions = menuOptions;
-    }
-
-    public void start() {
-        simpleCalculatorFile.initializeFile();
+    public static void start() {
+        SimpleCalculatorFile.initializeFile();
 
         while (true) {
             MenuOptions.menu();
-            OperationTypes getOptions = menuOptions.menuGetOptions();
+            OperationTypes getOptions = MenuOptions.menuGetOptions();
 
             if (getOptions.equals(OperationTypes.EXIT)) {
                 break;
@@ -37,13 +28,13 @@ public class StartCalculator {
 
             if (getOptions.equals(OperationTypes.HISTORIC)) {
                 System.out.println("\nHistoric:");
-                historic.getHistoric();
+                Historic.getHistoric();
             } else if (getOptions.equals(OperationTypes.CLEAN_HISTORIC)) {
-                historic.clearHistoric();
+                Historic.clearHistoric();
                 System.out.println("Historic cleaned!");
             } else {
                 MathOperations operations = OperationsHandler.getOperations(getOptions);
-                BigDecimal resultOperation = operations.Operation(menuOptions.getNumberOptions(getOptions));
+                BigDecimal resultOperation = operations.Operation(MenuOptions.getNumberOptions(getOptions));
                 System.out.printf("%nResult: %.2f", resultOperation);
             }
         }

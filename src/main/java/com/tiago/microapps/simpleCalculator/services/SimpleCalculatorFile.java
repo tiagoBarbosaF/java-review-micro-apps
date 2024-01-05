@@ -8,16 +8,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class SimpleCalculatorFile implements FileService {
-    private final Path path = Paths.get("HistoricCalculator.txt");
+public class SimpleCalculatorFile {
+    private static final Path path = Paths.get("HistoricCalculator.txt");
 
-    public void initializeFile() {
+    public static void initializeFile() {
         if (!Files.exists(path)) {
             clearFileContent();
         }
     }
 
-    public void addContent(String content) {
+    public static void addContent(String content) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path.toString(), true))) {
             bufferedWriter.append(content).append("\n");
         } catch (IOException e) {
@@ -25,7 +25,7 @@ public class SimpleCalculatorFile implements FileService {
         }
     }
 
-    public boolean checkFileContainsContent() {
+    public static boolean checkFileContainsContent() {
         try {
             return Files.size(path) != 0;
         } catch (IOException e) {
@@ -33,7 +33,7 @@ public class SimpleCalculatorFile implements FileService {
         }
     }
 
-    public void clearFileContent() {
+    public static void clearFileContent() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path.toString(), false))) {
             bufferedWriter.write("");
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class SimpleCalculatorFile implements FileService {
         }
     }
 
-    public Map.Entry<Map.Entry<Integer, String>, String> mapFileToTreeMap(String line) {
+    public static Map.Entry<Map.Entry<Integer, String>, String> mapFileToTreeMap(String line) {
         String[] elements = line.split(",");
         Integer key1 = Integer.parseInt(elements[0].trim().replace("[", ""));
         String key2 = elements[1].trim().replace("]", "");
@@ -51,7 +51,7 @@ public class SimpleCalculatorFile implements FileService {
         return Map.entry(Map.entry(key1, key2), value);
     }
 
-    public void readFromFile() {
+    public static void readFromFile() {
         List<Map.Entry<Map.Entry<Integer, String>, String>> listMaps = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toString()))) {

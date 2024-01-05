@@ -8,42 +8,37 @@ import java.util.Map;
 
 public class Historic {
     private static final List<Map.Entry<Map.Entry<Integer, String>, String>> historicControl = new ArrayList<>();
-    private final SimpleCalculatorFile simpleCalculatorFile;
-
-    public Historic(SimpleCalculatorFile simpleCalculatorFile) {
-        this.simpleCalculatorFile = simpleCalculatorFile;
-    }
 
 
     public static boolean checkHistoricEmpty() {
         return historicControl.isEmpty();
     }
 
-    public void clearHistoric() {
+    public static void clearHistoric() {
         historicControl.clear();
-        simpleCalculatorFile.clearFileContent();
+        SimpleCalculatorFile.clearFileContent();
     }
 
     public static Map.Entry<Map.Entry<Integer, String>, String> getLastHistoricKey() {
         return historicControl.getLast();
     }
 
-    public void addHistoric(Map.Entry<Integer, String> key, String value) {
+    public static void addHistoric(Map.Entry<Integer, String> key, String value) {
         historicControl.add(Map.entry(key, value));
 
         Map.Entry<Map.Entry<Integer, String>, String> lastHistoricKey = getLastHistoricKey();
-        simpleCalculatorFile.addContent("[" + lastHistoricKey
+        SimpleCalculatorFile.addContent("[" + lastHistoricKey
                 .getKey()
                 .toString()
                 .replace("=", ",") + "]," + lastHistoricKey.getValue());
     }
 
-    public void getHistoric() {
+    public static void getHistoric() {
         if (checkHistoricEmpty()) {
-            if (!simpleCalculatorFile.checkFileContainsContent()) {
+            if (!SimpleCalculatorFile.checkFileContainsContent()) {
                 System.out.println("\nHistoric is empty.");
             } else {
-                simpleCalculatorFile.readFromFile();
+                SimpleCalculatorFile.readFromFile();
             }
         } else {
             historicControl.forEach(item -> System.out.printf("%n%s: %s", item.getKey().getValue(), item.getValue()));

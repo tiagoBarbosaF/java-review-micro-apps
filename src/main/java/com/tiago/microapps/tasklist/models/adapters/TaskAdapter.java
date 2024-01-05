@@ -1,6 +1,7 @@
 package com.tiago.microapps.tasklist.models.adapters;
 
 import com.tiago.microapps.tasklist.models.enums.Priority;
+import com.tiago.microapps.tasklist.models.records.Category;
 import com.tiago.microapps.tasklist.models.records.Task;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ public class TaskAdapter {
     private String dateTime;
     private Priority priority;
     private boolean status;
-    private List<CategoryAdapter> categories;
+    private List<String> categories;
 
     public TaskAdapter(Task task) {
         this.id = task.id();
@@ -24,7 +25,7 @@ public class TaskAdapter {
         this.dateTime = task.dateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
         this.priority = task.priority();
         this.status = task.status();
-        this.categories = task.categories();
+        this.categories = task.categories().stream().map(Category::description).toList();
     }
 
     public void updateStatus(boolean newStatus) {

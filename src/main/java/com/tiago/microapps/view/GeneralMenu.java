@@ -7,13 +7,8 @@ import java.util.Scanner;
 
 public class GeneralMenu {
     private final static Scanner scanner = new Scanner(System.in);
-    private final StartCalculator startCalculator;
 
-    public GeneralMenu(StartCalculator startCalculator) {
-        this.startCalculator = startCalculator;
-    }
-
-    public void start() {
+    public static void start() {
         while (true) {
             menuOptions();
             System.out.print("\nEnter an option: ");
@@ -25,7 +20,7 @@ public class GeneralMenu {
 
             switch (optionMenu) {
                 case "1":
-                    startCalculator.start();
+                    StartCalculator.start();
                     break;
                 case "2":
                     StartTaskList.start();
@@ -43,10 +38,10 @@ public class GeneralMenu {
         String titleBar = "=".repeat(titleApp.length());
 
         System.out.println("\n" + menuBar + "\n" +
-                titleApp + "\n" +
-                "\t\t1 - Simple calculator\n" +
-                "\t\t2 - Task list\n" +
-                "\t\t0 - Exit\n\n" +
+                titleApp + "\n\n" +
+                "\t1 - Simple calculator\n" +
+                "\t2 - Task list\n" +
+                "\t0 - Exit\n\n" +
                 titleBar + "\n\n" +
                 menuBar);
     }
