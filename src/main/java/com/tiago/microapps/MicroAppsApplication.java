@@ -7,12 +7,14 @@ import com.tiago.microapps.tasklist.models.records.Category;
 import com.tiago.microapps.tasklist.models.records.Task;
 import com.tiago.microapps.tasklist.models.records.TaskDetails;
 import com.tiago.microapps.tasklist.services.TaskListFile;
+import com.tiago.microapps.tasklist.services.TaskListService;
 import com.tiago.microapps.view.GeneralMenu;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,7 +35,7 @@ public class MicroAppsApplication implements CommandLineRunner {
 
     private static void testCases() {
         String randomId = UUID.randomUUID().toString().substring(0, 8);
-        int option = 3;
+        int option = 4;
 
         switch (option) {
             case 1:
@@ -65,9 +67,23 @@ public class MicroAppsApplication implements CommandLineRunner {
                 break;
             case 3:
                 System.out.println();
+                DateTimeFormatter dataPattern = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 List<TaskDetails> taskDetails = TaskListFile.readFromFile();
 
                 taskDetails.forEach(System.out::println);
+                System.out.println();
+                taskDetails.stream().map(task -> LocalDateTime.parse(task.datetime(),dataPattern))
+                        .forEach(System.out::println);
+                System.out.println();
+                taskDetails.stream()
+                        .filter(task-> LocalDateTime.parse(task.datetime(),dataPattern).getDayOfMonth() == 15)
+                        .forEach(System.out::println);
+
+                break;
+            case 4:
+                TaskListService taskListService = new TaskListService();
+                System.out.println();
+                taskListService.getListByMonth(1);
                 break;
         }
     }
