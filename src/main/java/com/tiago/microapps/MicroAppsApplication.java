@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,13 +29,16 @@ public class MicroAppsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-//        GeneralMenu.start();
-        testCases();
+        GeneralMenu.start();
+//        testCases();
 
     }
 
     private static void testCases() {
-        String randomId = UUID.randomUUID().toString().substring(0, 8);
+        List<String> randomIds = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            randomIds.add(UUID.randomUUID().toString().substring(0, 8));
+        }
         int option = 4;
 
         switch (option) {
@@ -44,15 +48,15 @@ public class MicroAppsApplication implements CommandLineRunner {
             case 2:
                 LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 10, 10, 0, 0);
                 LocalDateTime localDateTime2 = LocalDateTime.of(2024, 1, 15, 22, 0, 0);
-                Task academia = new Task(randomId, "academia", localDateTime, Priority.MEDIUM, false,
+                Task academia = new Task(randomIds.get(0), "academia", localDateTime, Priority.MEDIUM, false,
                         List.of(
-                                new Category(randomId, "fitness"),
-                                new Category(randomId, "lifestyle")
+                                new Category(randomIds.get(1), "fitness"),
+                                new Category(randomIds.get(2), "lifestyle")
                         ));
-                Task show = new Task(randomId, "show", localDateTime2, Priority.HIGH, false,
+                Task show = new Task(randomIds.get(3), "show", localDateTime2, Priority.HIGH, false,
                         List.of(
-                                new Category(randomId, "music"),
-                                new Category(randomId, "lifestyle")));
+                                new Category(randomIds.get(4), "music"),
+                                new Category(randomIds.get(5), "lifestyle")));
                 TaskAdapter taskAdapter1 = new TaskAdapter(academia);
                 TaskAdapter taskAdapter2 = new TaskAdapter(show);
                 Gson gson = new Gson();
@@ -82,8 +86,16 @@ public class MicroAppsApplication implements CommandLineRunner {
                 break;
             case 4:
                 TaskListService taskListService = new TaskListService();
-                System.out.println();
+                System.out.println("\nGet by month");
                 taskListService.getListByMonth(1);
+                System.out.println("\nGet by day");
+                taskListService.getListByDay(10);
+                System.out.println("\nGet by Year");
+                taskListService.getListByYear(2024);
+                System.out.println("\nGet by priority");
+                taskListService.getListByPriority(3);
+                System.out.println("\nGet by category");
+                taskListService.getListByCategory("Music");
                 break;
         }
     }

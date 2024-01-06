@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TaskListFile {
     private static final List<TaskDetails> taskList = new ArrayList<>();
@@ -49,13 +48,6 @@ public class TaskListFile {
 
     public static List<TaskDetails> readFromFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toString()))) {
-            String line;
-
-//            while ((line = bufferedReader.readLine()) != null) {
-//                TaskAdapter task = gson.fromJson(line, TaskAdapter.class);
-//                taskList.add(new TaskDetails(task));
-//            }
-//            return taskList;
             bufferedReader.lines()
                     .map(json -> gson.fromJson(json, TaskAdapter.class))
                     .forEach(task->taskList.add(new TaskDetails(task)));

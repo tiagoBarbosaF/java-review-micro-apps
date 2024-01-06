@@ -10,9 +10,10 @@ public record TaskDetails(
         String description,
         String datetime,
         Priority priority,
+        boolean status,
         List<String> categoryDetails
 ) {
     public TaskDetails(TaskAdapter task) {
-        this(task.getId(), task.getDescription(), task.getDateTime(), task.getPriority(), task.getCategories());
+        this(task.getId(), task.getDescription(), task.getDateTime(), task.getPriority(), task.isStatus(), task.getCategories());
     }
 }
